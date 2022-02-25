@@ -4,21 +4,20 @@ import 'package:mocktail/mocktail.dart';
 import 'package:weather_forecast_bloc_app/app/modules/search/domain/entities/result_search.dart';
 import 'package:weather_forecast_bloc_app/app/modules/search/domain/errors/failure_search.dart';
 import 'package:weather_forecast_bloc_app/app/modules/search/infra/datasources/search_datasource.dart';
-import 'package:weather_forecast_bloc_app/app/modules/search/infra/models/result_search_model.dart';
 import 'package:weather_forecast_bloc_app/app/modules/search/infra/repositories/search_repository_impl.dart';
 
 class SearchDatasourceMock extends Mock implements SearchDatasource {}
 
-class ResultSearchModelMock extends Mock implements ResultSearchModel {}
+class ResultSearchMapperMock extends Mock implements ResultSearch {}
 
 void main() {
   final datasource = SearchDatasourceMock();
   final repository = SearchRepositoryImpl(datasource);
-  final resultSearchModelMock = ResultSearchModelMock();
+  final resultSearchMapperMock = ResultSearchMapperMock();
 
   test('Deve retornar uma lista de ResultSearch', () async {
     when(() => datasource.getSearch(any()))
-        .thenAnswer((_) async => resultSearchModelMock);
+        .thenAnswer((_) async => resultSearchMapperMock);
     final result = await repository.search('Curitiba');
     expect(result.fold(id, id), isA<ResultSearch>());
   });

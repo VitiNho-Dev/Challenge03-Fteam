@@ -1,5 +1,5 @@
-import 'package:weather_forecast_bloc_app/app/modules/search/infra/models/result_search_model.dart';
+import 'package:weather_forecast_bloc_app/app/modules/search/domain/entities/result_search.dart';
 
 abstract class SearchDatasource {
-  Future<ResultSearchModel> getSearch(String searchText);
+  Future<ResultSearch> getSearch(String searchText);
 }

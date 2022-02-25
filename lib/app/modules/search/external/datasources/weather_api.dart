@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:weather_forecast_bloc_app/app/modules/search/domain/entities/result_search.dart';
+import 'package:weather_forecast_bloc_app/app/modules/search/external/mappers/result_search_mapper.dart';
 import 'package:weather_forecast_bloc_app/app/modules/search/infra/datasources/search_datasource.dart';
-import 'package:weather_forecast_bloc_app/app/modules/search/infra/models/result_search_model.dart';
 
 class WeatherApi implements SearchDatasource {
   final Dio dio;
@@ -8,11 +9,11 @@ class WeatherApi implements SearchDatasource {
   WeatherApi(this.dio);
 
   @override
-  Future<ResultSearchModel> getSearch(String searchText) async {
+  Future<ResultSearch> getSearch(String searchText) async {
     final response =
         await dio.get('https://goweather.herokuapp.com/weather/$searchText');
-    ResultSearchModel resultSearchModel =
-        ResultSearchModel.fromJson(response.data);
-    return resultSearchModel;
+    ResultSearch resultSearchMapper =
+        ResultSearchMapper.fromJson(response.data);
+    return resultSearchMapper;
   }
 }

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class SearchController {
   String getImage(String value) {
     if (value.contains('rain')) {
