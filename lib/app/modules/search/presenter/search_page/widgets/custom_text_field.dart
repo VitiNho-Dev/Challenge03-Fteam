@@ -15,12 +15,11 @@ class CustomTextField extends StatelessWidget {
     return TextField(
       onChanged: onChanged,
       decoration: InputDecoration(
-        border: const OutlineInputBorder(),
-        contentPadding: EdgeInsets.zero,
-        suffix: IconButton(
+        suffixIcon: IconButton(
           onPressed: onPressed,
           icon: const Icon(Icons.search),
         ),
+        border: const OutlineInputBorder(),
       ),
     );
   }
