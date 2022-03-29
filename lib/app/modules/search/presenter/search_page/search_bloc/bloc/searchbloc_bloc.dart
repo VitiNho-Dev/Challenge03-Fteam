@@ -16,7 +16,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   getText(SearchTextEvent event, Emitter<SearchState> emit) async {
     emit(SearchLoading());
-    final result = await usecase.call(event.searchText!);
+    final result = await usecase(event.searchText!);
     emit(result.fold((l) => SearchError(), (r) => SearchSuccess(r)));
   }
 }

@@ -1,40 +1,48 @@
 import 'package:flutter/material.dart';
 
-import 'package:weather_forecast_bloc_app/app/modules/search/domain/entities/result_search.dart';
+import '../../../../../theme/app_colors.dart';
 
 class CustomForecastCard extends StatelessWidget {
+  final String day;
+  final String temperature;
+  final String wind;
+
   const CustomForecastCard({
     Key? key,
-    required this.resultSearch,
+    required this.day,
+    required this.temperature,
+    required this.wind,
   }) : super(key: key);
-
-  final ResultSearch resultSearch;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
-      width: 80,
+      width: 160,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 18,
+        vertical: 23,
+      ),
+      margin: const EdgeInsets.only(right: 8),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Colors.white,
-          boxShadow: const [
-            BoxShadow(
-              offset: Offset(0, 3),
-              blurRadius: 3,
-              color: Colors.black54,
-            )
-          ]),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(resultSearch.day),
-            Text(resultSearch.temperature),
-            Text(resultSearch.wind),
-          ],
-        ),
+        color: AppColors.textColor.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          const FlutterLogo(
+            size: 32,
+          ),
+          Column(
+            children: [
+              Text(day),
+              Text(
+                temperature,
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+              Text(wind),
+            ],
+          ),
+        ],
       ),
     );
   }
