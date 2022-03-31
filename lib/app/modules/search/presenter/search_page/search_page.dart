@@ -17,6 +17,11 @@ class SearchPage extends StatelessWidget {
   final searchController = SearchController();
   final controller = TextEditingController();
 
+  String nameCity(String? name) {
+    String city = name ?? '';
+    return city;
+  }
+
   @override
   Widget build(BuildContext context) {
     String? _searchText;
@@ -38,6 +43,7 @@ class SearchPage extends StatelessWidget {
                 },
                 onPressed: () {
                   bloc.add(SearchTextEvent(_searchText));
+                  searchController.cityName = nameCity(controller.text);
                   controller.clear();
                 },
               ),
@@ -62,28 +68,40 @@ class SearchPage extends StatelessWidget {
                   }
 
                   final result = (state as SearchSuccess).resultSearch;
-                  return Column(
-                    children: [
-                      CustomPrimaryCard(
-                        description: result.description,
-                        temperature: result.temperature,
-                        wind: result.wind,
-                      ),
-                      SizedBox(height: size.height * 0.18),
-                      ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: result.forecast.length,
-                        itemBuilder: (context, index) {
-                          final forecastResult = result.forecast[index];
-                          return CustomForecastCard(
-                            day: forecastResult.day,
-                            temperature: forecastResult.temperature,
-                            wind: forecastResult.wind,
-                          );
-                        },
-                      ),
-                    ],
+                  String value = result.description;
+                  String image = searchController.getImage(value);
+                  String nameCity = searchController.cityName;
+                  return SizedBox(
+                    height: size.height * 0.6,
+                    child: Column(
+                      children: [
+                        CustomPrimaryCard(
+                          description: result.description,
+                          temperature: result.temperature,
+                          wind: result.wind,
+                          imageUrl: image,
+                          city: nameCity,
+                        ),
+                        SizedBox(height: size.height * 0.16),
+                        SizedBox(
+                          height: 93,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: result.forecast.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              final forecastResult = result.forecast[index];
+                              return CustomForecastCard(
+                                day: forecastResult.day,
+                                temperature: forecastResult.temperature,
+                                wind: forecastResult.wind,
+                                imageUrl: image,
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),

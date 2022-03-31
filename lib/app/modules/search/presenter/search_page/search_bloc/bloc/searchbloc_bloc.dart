@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:weather_forecast_bloc_app/app/modules/search/domain/entities/result_search.dart';
-
 import 'package:weather_forecast_bloc_app/app/modules/search/domain/usecases/search_by_text.dart';
 
 part 'searchbloc_event.dart';

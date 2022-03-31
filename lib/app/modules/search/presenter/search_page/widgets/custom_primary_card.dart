@@ -6,12 +6,16 @@ class CustomPrimaryCard extends StatelessWidget {
   final String description;
   final String temperature;
   final String wind;
+  final String imageUrl;
+  final String city;
 
   const CustomPrimaryCard({
     Key? key,
     required this.description,
     required this.temperature,
     required this.wind,
+    required this.imageUrl,
+    required this.city,
   }) : super(key: key);
 
   @override
@@ -42,10 +46,22 @@ class CustomPrimaryCard extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline4,
               ),
               Text(wind),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.location_on_sharp,
+                    color: Colors.yellow,
+                  ),
+                  Text(city),
+                ],
+              ),
             ],
           ),
-          const FlutterLogo(
-            size: 64,
+          Image.asset(
+            imageUrl,
+            width: 64,
+            height: 64,
           ),
         ],
       ),
